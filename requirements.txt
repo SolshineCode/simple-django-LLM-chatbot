@@ -1,0 +1,6 @@
+django==3.2.18
+torch
+tensorflow
+flax
+transformers
+tf-keras
