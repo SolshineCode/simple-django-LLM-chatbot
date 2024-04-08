@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chatbot</title>
+</head>
+<body>
+    <h1>Chatbot</h1>
+    <div id="chat-container">
+        <div id="chat-history"></div>
+        <form id="chat-form" method="post">
+            {% csrf_token %}
+            <input type="text" id="chat-input" placeholder="Type your message..." />
+            <button type="submit" id="chat-submit">Send</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#chat-form').submit(function(event) {
+                event.preventDefault();
+                var userInput = $('#chat-input').val();
+                var csrftoken = $("[name=csrfmiddlewaretoken]").val();
+                $.ajax({
+                    type: 'POST',
+                    url: '{% url "chatbot" %}',
+                    headers: { 'X-CSRFToken': csrftoken },
+                    data: { 'user_input': userInput },
+                    success: function(data) {
+                        $('#chat-history').append('<div class="user-message">You: ' + userInput + '</div>');
+                        $('#chat-history').append('<div class="bot-message">Bot: ' + data.response + '</div>');
+                        $('#chat-input').val('');
+                    }
+                });
+            });
+        });
+    </script>
+
+    <style>
+        .user-message {
+            text-align: right;
+            color: blue;
+        }
+        .bot-message {
+            text-align: left;
+            color: green;
+        }
+    </style>
+</body>
+</html>
