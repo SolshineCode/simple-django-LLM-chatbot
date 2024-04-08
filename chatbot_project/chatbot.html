@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Django LLM Chatbot by Caleb DeLeeuw</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+        background-image: url("https://th.bing.com/th/id/OIG1.9H325iofdCRIbcNun1gA?w=1024&h=1024&rs=1&pid=ImgDetMain");  /* Replace with your image path */
+        background-size: cover;
+        background-position: center;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+  
+      .chat-container {
+        width: 500px;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        display: flex;
+        flex-direction: column;
+        overflow-y: scroll;
+      }
+  
+      .chat-history {
+        flex: 1;
+        padding: 10px;
+      }
+  
+      .user-message,
+      .bot-message {
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 5px;
+        display: inline-block;
+      }
+  
+      .user-message {
+        text-align: right;
+        background-color: # błę3f0; /* Light blue */
+        color: #333;
+      }
+  
+      .bot-message {
+        text-align: left;
+        background-color: #dfefff; /* Light green */
+        color: #333;
+      }
+  
+      .chat-form {
+        display: flex;
+        align-items: center;
+      }
+  
+      #chat-input {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+  
+      #chat-submit {
+        padding: 10px 15px;
+        background-color: #2196f3; /* Blue */
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    </style>
+</head>
+<body>
+    <h1>Django LLM Chatbot</h1>
+    <div id="chat-container">
+        <div id="chat-history"></div>
+        <form id="chat-form" method="post">
+            {% csrf_token %}
+            <input type="text" id="chat-input" placeholder="Type your message..." />
+            <button type="submit" id="chat-submit">Send</button>
+                <i class="fa-solid fa-paper-plane"></i>  </button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#chat-form').submit(function(event) {
+                event.preventDefault();
+                var userInput = $('#chat-input').val();
+                var csrftoken = $("[name=csrfmiddlewaretoken]").val();
+                $.ajax({
+                    type: 'POST',
+                    url: '{% url "chatbot" %}',
+                    headers: { 'X-CSRFToken': csrftoken },
+                    data: { 'user_input': userInput },
+                    success: function(data) {
+                        $('#chat-history').append('<div class="user-message">You: ' + userInput + '</div>');
+                        $('#chat-history').append('<div class="bot-message">Bot: ' + data.response + '</div>');
+                        $('#chat-input').val('');
+                    }
+                });
+            });
+        });
+    </script>
+
+    <style>
+        .user-message {
+            text-align: right;
+            color: blue;
+        }
+        .bot-message {
+            text-align: left;
+            color: green;
+        }
+    </style>
+</body>
+</html>
