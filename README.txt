@@ -86,4 +86,4 @@ This is a skill-building project. Contributions to the Django Chatbot project ar
 ## License
 This project is licensed under the [MIT License](LICENSE).
 
-This documentation created using an LLM.
+This documentation created in part using an LLM.
