@@ -14,7 +14,7 @@
 9. [License](#license)
 
 ## Introduction
-The Django Chatbot is an exciting web application that allows users to interact with a conversational AI assistant powered by the Hugging Face Transformers library. This project showcases the integration of a large language model (LLM) into a Django web framework, providing a seamless and engaging chatbot experience.
+The Django Chatbot is an exciting web application that allows users to interact with a conversational AI assistant powered by the Hugging Face Transformers library (now updated to Ollama local LLM). This project showcases the integration of a large language model (LLM) into a Django web framework, providing a seamless and engaging chatbot experience.
 
 ## Features
 - Conversational AI assistant powered by Hugging Face Transformers
