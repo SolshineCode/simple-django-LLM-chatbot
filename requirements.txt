@@ -4,3 +4,4 @@ tensorflow
 flax
 transformers
 tf-keras
+ollama
