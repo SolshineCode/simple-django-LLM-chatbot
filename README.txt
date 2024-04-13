@@ -28,6 +28,7 @@ The Django Chatbot is an exciting web application that allows users to interact 
 - Hugging Face Transformers
 - jQuery
 - HTML/CSS
+- Ollama
 
 ## Getting Started
 
